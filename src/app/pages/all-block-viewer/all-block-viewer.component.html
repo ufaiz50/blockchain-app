@@ -1,0 +1,40 @@
+<div class="information-area">
+    <div class="all-block container p-5">
+        <h1 class="text-center pb-3" style="padding-top: 80px;">All block in blockchain</h1>
+        <table class="content-table-1 pt-5" style="font-size: small;">
+            <!--Table head-->
+            <thead>
+                <tr>
+                    <th style="width: 10px;">Height</th>
+                    <th>Hash</th>
+                    <th>Prev Hash</th>
+                    <th style="width: 10px;">Nonce</th>
+                    <th style="width: 10px;">Timestamp</th>
+                </tr>
+            </thead>
+            <!--Table head-->
+
+            <!--Table body-->
+            <tbody>
+                <tr class="" *ngFor="let block of latesBlock">
+                    <td scope="col">
+                        <a [routerLink]="['/detailblock', block.hash]">{{block.height}}</a>
+                    </td>
+                    <td class="text-truncate" style="max-width: 100px;">
+                        <div style="overflow-x: hidden; white-space: nowrap;">
+                            <a [routerLink]="['/detailblock', block.hash]">{{ block.hash }}</a>
+                        </div>
+                    </td>
+                    <td class="text-truncate" style="max-width: 100px;">
+                        <div style="overflow-x: hidden; white-space: nowrap;">
+                            <a [routerLink]="['/detailblock', block.previousHash]">{{ block.previousHash }}</a>
+                        </div>
+                    </td>
+                    <td>{{ block.nonce }}</td>
+                    <td>{{ block.timestamp |date:'MMM d, y, HH:mm'}}</td>
+                </tr>
+            </tbody>
+            <!--Table body-->
+        </table>
+    </div>
+</div>

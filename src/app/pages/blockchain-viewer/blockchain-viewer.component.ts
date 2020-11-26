@@ -6,14 +6,39 @@ import { BlockchainService } from '../../services/blockchain.service';
   styleUrls: ['./blockchain-viewer.component.scss']
 })
 export class BlockchainViewerComponent implements OnInit {
-
+  @Input()
+  public transactions = [];
   public blocks = [];
+  public reverseBlock = [];
+  public recentBlock = [];
+  public recentTrans = [];
+
   public selectedBlock = null;
 
   constructor(private blockchainService: BlockchainService) {
     this.blocks = blockchainService.blockchainInstance.chain;
-    this.selectedBlock = this.blocks[0];
-    console.log(this.blocks);
+    this.selectedBlock = this.blocks[1];
+
+    for( let x = this.blocks.length - 1 ; x>=0 ; x--){
+      this.reverseBlock.push(this.blocks[x]);
+    }
+
+    for( let y = 0 ; y <= 5; y++){
+      this.recentBlock.push(this.reverseBlock[y]);
+    }
+    
+    for(let i=this.blocks.length - 1 ; i>=0 ; i--){
+      for (let index = this.blocks[i].transactions.length - 1 ; index >=0 ; index--) {
+        this.transactions.push(this.blocks[i].transactions[index]); 
+      }
+    }
+
+    for(let i=0 ; i<=5; i++){
+      this.recentTrans.push(this.transactions[i])
+    }
+
+    console.log(this.transactions);
+    console.log(this.recentBlock);
   }
 
   ngOnInit() {

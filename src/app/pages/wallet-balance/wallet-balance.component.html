@@ -1,4 +1,33 @@
-<div class="container">
+<div class="container" style="padding-top: 6.5rem;">
+	<h1 class="text-center pt-5">Detail for Node</h1>
+	<div class="row">
+		<div class="col-sm-8">
+			<table class="content-table-1">
+				<tbody>
+					<tr>
+						<td scope="col">Adress</td>
+						<td scope="col">{{ walletAddress }}</td>
+					</tr>
+					<tr>
+						<td>Amount Transaction</td>
+						<td>{{transactions.length }}</td>
+					</tr>
+				</tbody>
+
+			</table>
+		</div>
+		<div class="col-sm-4">
+			<img src="" alt="">
+		</div>
+	</div>
+	<div>
+		<h1 class="text-center">Transactions</h1>
+		<p *ngIf="transactions.length === 0">This wallet has made no transactions (yet)</p>
+		<app-transactions-table [transactions]="transactions" *ngIf="transactions.length > 0"></app-transactions-table>
+	</div>
+</div>
+
+<!-- <div class="container">
 	<h1>Wallet details</h1>
 
 	<p style="word-wrap:break-word;">
@@ -17,8 +46,5 @@
 
 	<h1>Transactions</h1>
 	<p *ngIf="transactions.length === 0">This wallet has made no transactions (yet)</p>
-	<app-transactions-table
-		[transactions]="transactions"
-		*ngIf="transactions.length > 0"
-	></app-transactions-table>
-</div>
+	<app-transactions-table [transactions]="transactions" *ngIf="transactions.length > 0"></app-transactions-table>
+</div> -->

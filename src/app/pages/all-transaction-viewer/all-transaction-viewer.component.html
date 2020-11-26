@@ -1,0 +1,38 @@
+<div class="all-transaciton container pt-5">
+    <h1 class="text-center pb-3" style="padding-top: 80px;"> All Transaction in Each Block</h1>
+    <table class="content-table-1" style="font-size: small;">
+        <thead>
+            <tr>
+                <th scope="col">Signature</th>
+                <th scope="col">From</th>
+                <th scope="col">Title</th>
+                <th scope="col">Timestamp</th>
+                <th scope="col" style="width: 10px;">Valid?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tx of allTransaction; index as index">
+                <td class="text-truncate" style="max-width: 120px;">
+                    <div style="overflow-x: hidden; white-space: nowrap;">
+                        <a [routerLink]="['/wallet', tx.fromAddress]">{{ tx.signature }}</a>
+                    </div>
+                </td>
+                <td class="text-truncate" style="max-width: 120px;">
+                    <div style="overflow-x: hidden; white-space: nowrap;">
+                        <a [routerLink]="['/wallet', tx.fromAddress]">{{ tx.fromAddress }}</a>
+                    </div>
+                </td>
+                <td class="text-truncate" style="max-width: 120px;">
+                    <div style="overflow-x: hidden; white-space: nowrap;">
+                        <a [routerLink]="['/wallet', tx.fromAddress]">{{ tx.title }}</a>
+                    </div>
+                </td>
+                <td>{{ tx.timestamp |date:'MMM d, y, HH:mm' }}</td>
+                <td>
+                    <span *ngIf="tx.isValid()">✓</span>
+                    <span *ngIf="!tx.isValid()">✗</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

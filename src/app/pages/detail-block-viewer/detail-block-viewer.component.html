@@ -1,0 +1,91 @@
+<div class="container px-5" style="padding-top: 120px;">
+    <div class="detail">
+        <h4 class="pb-4">Block : {{data.height}}</h4>
+        <div class="row border-bottom py-3">
+            <div class="col-3">
+                Hash
+            </div>
+            <div class="col-9">
+                {{data.hash}}
+            </div>
+        </div>
+        <div class="row border-bottom py-3">
+            <div class="col-3">
+                TimeStamp
+            </div>
+            <div class="col-9">
+                {{data.timestamp |date:'MMM d, y, HH:mm'}}
+            </div>
+        </div>
+        <div class="row border-bottom py-3">
+            <div class="col-3">
+                Height
+            </div>
+            <div class="col-9">
+                {{data.height}}
+            </div>
+        </div>
+        <div class="row border-bottom py-3">
+            <div class="col-3">
+                Number of Transactions
+            </div>
+            <div class="col-9">
+                {{data.transactions.length}}
+            </div>
+        </div>
+        <div class="row border-bottom py-3">
+            <div class="col-3">
+                Previous Hash
+            </div>
+            <div class="col-9">
+                {{data.previousHash}}
+            </div>
+        </div>
+        <div class="row border-bottom py-3">
+            <div class="col-3">
+                Nonce
+            </div>
+            <div class="col-9">
+                {{data.nonce}}
+            </div>
+        </div>
+    </div>
+    <div class="transactions" style="padding-top: 100px;">
+        <h4>Block Transactions</h4>
+        <table class="content-table-1" style="font-size: small;">
+            <thead>
+                <tr>
+                    <th scope="col">Signature</th>
+                    <th scope="col">From</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Timestamp</th>
+                    <th scope="col" style="width: 10px;">Valid?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tx of data.transactions; index as index">
+                    <td class="text-truncate" style="max-width: 120px;">
+                        <div style="overflow-x: hidden; white-space: nowrap;">
+                            <a [routerLink]="['/wallet', tx.fromAddress]">{{ tx.signature }}</a>
+                        </div>
+                    </td>
+                    <td class="text-truncate" style="max-width: 120px;">
+                        <div style="overflow-x: hidden; white-space: nowrap;">
+                            <a [routerLink]="['/wallet', tx.fromAddress]">{{ tx.fromAddress }}</a>
+                        </div>
+                    </td>
+                    <td class="text-truncate" style="max-width: 120px;">
+                        <div style="overflow-x: hidden; white-space: nowrap;">
+                            <a [routerLink]="['/wallet', tx.fromAddress]">{{ tx.title }}</a>
+                        </div>
+                    </td>
+                    <td>{{ tx.timestamp |date:'MMM d, y, HH:mm' }}</td>
+                    <td>
+                        <span *ngIf="tx.isValid()">✓</span>
+                        <span *ngIf="!tx.isValid()">✗</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

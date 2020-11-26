@@ -2,6 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
+// firebase
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
+import { environment } from '../environments/environment';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BlockViewComponent } from './components/block-view/block-view.component';
@@ -13,6 +18,11 @@ import { TransactionsTableComponent } from './components/transactions-table/tran
 import { CreateTransactionComponent } from './pages/create-transaction/create-transaction.component';
 import { PendingTransactionsComponent } from './pages/pending-transactions/pending-transactions.component';
 import { WalletBalanceComponent } from './pages/wallet-balance/wallet-balance.component';
+import { AllBlockViewerComponent } from './pages/all-block-viewer/all-block-viewer.component';
+import { AllTransactionViewerComponent } from './pages/all-transaction-viewer/all-transaction-viewer.component';
+import { DetailBlockViewerComponent } from './pages/detail-block-viewer/detail-block-viewer.component';
+import { DetailTransactionViewerComponent } from './pages/detail-transaction-viewer/detail-transaction-viewer.component';
+import { OrganizationViewerComponent } from './pages/organization-viewer/organization-viewer.component';
 
 @NgModule({
   declarations: [
@@ -23,12 +33,19 @@ import { WalletBalanceComponent } from './pages/wallet-balance/wallet-balance.co
     TransactionsTableComponent,
     CreateTransactionComponent,
     PendingTransactionsComponent,
-    WalletBalanceComponent
+    WalletBalanceComponent,
+    AllBlockViewerComponent,
+    AllTransactionViewerComponent,
+    DetailBlockViewerComponent,
+    DetailTransactionViewerComponent,
+    OrganizationViewerComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule
   ],
   providers: [
     BlockchainService

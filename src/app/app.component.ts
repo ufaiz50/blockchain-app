@@ -10,9 +10,11 @@ export class AppComponent implements OnInit {
   public blockchain;
   public showInfoMessage = true;
 
+
   constructor(private blockchainService: BlockchainService) {
     this.blockchain = blockchainService.blockchainInstance;
   }
+
 
   ngOnInit() {
   }
