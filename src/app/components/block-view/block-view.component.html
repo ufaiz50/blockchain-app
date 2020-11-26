@@ -9,7 +9,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr *ngFor="let block of blocks; index as index">
+		<tr *ngFor="let block of block; index as index">
 			<td>{{ getBlockNumber() }}</td>
 			<td>{{ block.hash }}</td>
 			<td>{{ block.previousHash }}</td>
