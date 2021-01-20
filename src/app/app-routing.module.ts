@@ -10,18 +10,36 @@ import { AllTransactionViewerComponent } from './pages/all-transaction-viewer/al
 import { DetailBlockViewerComponent } from './pages/detail-block-viewer/detail-block-viewer.component';
 import { DetailTransactionViewerComponent } from './pages/detail-transaction-viewer/detail-transaction-viewer.component';
 import { OrganizationViewerComponent } from './pages/organization-viewer/organization-viewer.component';
+import { DetailOrganizationViewerComponent } from './pages/detail-organization-viewer/detail-organization-viewer.component';
+import { LoginComponent } from './page/login/login.component';
+import { SearchComponent } from './pages/search/search.component';
+import { HomeComponent } from './page/home/home.component';
+import { AuthGuard } from './page/_helpers';
+import { RegisterComponent } from './page/register';
+import { TryLoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
   {path: '', component: BlockchainViewerComponent },
   {path: 'settings', component: SettingsComponent},
-  {path: 'new/transaction', component: CreateTransactionComponent },
-  {path: 'new/transaction/pending', component: PendingTransactionsComponent },
+  {path: 'new/transaction', component: CreateTransactionComponent, canActivate: [AuthGuard] },
+  {path: 'new/transaction/pending', component: PendingTransactionsComponent, canActivate: [AuthGuard] },
   {path: 'wallet/:address', component: WalletBalanceComponent },
   {path: 'allblock', component: AllBlockViewerComponent},
   {path: 'alltransaction', component: AllTransactionViewerComponent},
   {path: 'detailblock/:address', component: DetailBlockViewerComponent},
   {path: 'detailtransaction/:address', component: DetailTransactionViewerComponent},
-  {path: 'organization', component: OrganizationViewerComponent}
+  {path: 'organization', component: OrganizationViewerComponent},
+  {path: 'detailorganization/:address', component: DetailOrganizationViewerComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'search/:search', component: SearchComponent},
+
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },  
+  { path: 'page/login', component: TryLoginComponent },
+  
+  { path: 'page/register', component: RegisterComponent },
+  // otherwise redirect to home
+  { path: '**', redirectTo: '' }
+
 ];
 
 @NgModule({

@@ -1,0 +1,33 @@
+<div class="container px-5" style="padding-top: 120px;">
+    <!-- <div>
+        <h4>Search For 1</h4>
+        <div class="pt-5">
+            <p class="text-dark">Data yang anda cari tidak ada dalam sistem</p>
+        </div>
+    </div> -->
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search Here" [(ngModel)]="search">
+    </div>
+
+    <table class="table" *ngIf="search !== ''">
+        <thead>
+            <tr>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of transactions | filter:search">
+                <td>{{item.signature}}</td>
+                <td>{{item.title}}</td>
+                <td>{{item.timestamp}}</td>
+            </tr>
+            <tr *ngFor="let item of items | filter:search">
+                <td>{{item.height}}</td>
+                <td>{{item.hash}}</td>
+                <td>{{item.timestamp}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

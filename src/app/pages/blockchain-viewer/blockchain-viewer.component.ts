@@ -1,4 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 import { BlockchainService } from '../../services/blockchain.service';
 @Component({
   selector: 'app-blockchain-viewer',
@@ -7,38 +10,34 @@ import { BlockchainService } from '../../services/blockchain.service';
 })
 export class BlockchainViewerComponent implements OnInit {
   @Input()
-  public transactions = [];
-  public blocks = [];
-  public reverseBlock = [];
-  public recentBlock = [];
-  public recentTrans = [];
-
   public selectedBlock = null;
-
-  constructor(private blockchainService: BlockchainService) {
-    this.blocks = blockchainService.blockchainInstance.chain;
-    this.selectedBlock = this.blocks[1];
-
-    for( let x = this.blocks.length - 1 ; x>=0 ; x--){
-      this.reverseBlock.push(this.blocks[x]);
-    }
-
-    for( let y = 0 ; y <= 5; y++){
-      this.recentBlock.push(this.reverseBlock[y]);
-    }
-    
-    for(let i=this.blocks.length - 1 ; i>=0 ; i--){
-      for (let index = this.blocks[i].transactions.length - 1 ; index >=0 ; index--) {
-        this.transactions.push(this.blocks[i].transactions[index]); 
+  
+  blocks: any[];
+  kirim = [];
+  transactions = []
+  constructor(private firestore: AngularFirestore, private blockchainService: BlockchainService) {
+    firestore.collection('block', ref => ref.orderBy("height", "desc")).snapshotChanges().subscribe( data =>{
+      this.blocks = data.map(e=>{
+        return{
+          id: e.payload.doc.id,
+          hash: e.payload.doc.data()['hash'],
+          height: e.payload.doc.data()['height'],
+          nonce: e.payload.doc.data()['nonce'],
+          previousHash: e.payload.doc.data()['previousHash'],
+          timestamp: e.payload.doc.data()['timestamp'],
+          transactions: e.payload.doc.data()['transactions']
+        }
+      })
+      for(const transactions of this.blocks){
+          this.kirim.push(transactions.transactions)
       }
-    }
-
-    for(let i=0 ; i<=5; i++){
-      this.recentTrans.push(this.transactions[i])
-    }
-
-    console.log(this.transactions);
-    console.log(this.recentBlock);
+      for(let index = 0; index < this.kirim.length; index++){
+        for(const tx of this.kirim[index]){
+          this.transactions.push(tx)
+        }
+      }
+      
+    })
   }
 
   ngOnInit() {

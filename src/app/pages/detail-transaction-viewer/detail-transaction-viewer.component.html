@@ -1,1 +1,54 @@
-<p>detail-transaction-viewer works!</p>
+<div class="container px-5" style="padding-top: 120px;">
+    <div class="detail pb-2">
+        <div class="row border-bottom py-3">
+            <div class="col-3">
+                HashTx
+            </div>
+            <div class="col-9" style="overflow-x: hidden; white-space: nowrap;">
+                : {{ detail.signature }}
+            </div>
+        </div>
+        <div class="row border-bottom py-3">
+            <div class="col-3">
+                TimeStamp
+            </div>
+            <div class="col-9">
+                : {{detail.timestamp |date:'MMM d, y, HH:mm'}}
+            </div>
+        </div>
+        <div class="row border-bottom py-3">
+            <div class="col-3">
+                Organization
+            </div>
+            <div class="col-9">
+                : {{detail.organization}}
+            </div>
+        </div>
+        <div class="row border-bottom py-3">
+            <div class="col-3">
+                Data didalam transaksi
+            </div>
+            <div class="col-9">
+                : {{detail.title}} {{detail.year}}
+            </div>
+        </div>
+    </div>
+
+    <div class="data-in-transaction">
+        <table class="content-table-1" style="font-size: small;">
+            <thead>
+                <tr>
+                    <th *ngFor="let d of data[0] | keyvalue" scope="col">{{d.key}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of data">
+                    <td scope="col" *ngFor="let d of data | keyvalue" class="text-truncate" style="max-width: 120px;">
+                        <div style="overflow-x: hidden; white-space: nowrap;">{{d.value}}
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

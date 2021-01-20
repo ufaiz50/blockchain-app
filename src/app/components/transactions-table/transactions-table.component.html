@@ -2,43 +2,32 @@
   <table class="content-table-1">
     <thead>
       <tr>
-        <th>#</th>
-        <th>From</th>
-        <th>to</th>
-        <th>Amount</th>
-        <th>Timestamp</th>
-        <th>Valid?</th>
+        <th scope="col">Signature</th>
+        <th scope="col">Organization</th>
+        <th scope="col">Title</th>
+        <th scope="col">Timestamp</th>
+        <th scope="col" style="width: 10px;">Valid?</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let tx of transactions; index as index">
-        <td>{{index}}</td>
-        <td class="text-truncate" style="max-width: 100px;">
-
-          <a [routerLink]="['/wallet', tx.fromAddress]" *ngIf="tx.fromAddress !== null">{{tx.fromAddress}}</a>
-
-          <span *ngIf="tx.fromAddress === null">System</span>
-
-          <span class="text-muted" *ngIf="blockchainService.addressIsFromCurrentUser(tx.fromAddress)">
-            <br><small>(That's yours!)</small>
-          </span>
+        <td class="text-truncate" style="max-width: 120px;">
+          <div style="overflow-x: hidden; white-space: nowrap;">
+            <a [routerLink]="['/detailtransaction', tx.signature]">{{ tx.signature }}</a>
+          </div>
         </td>
-        <td class="text-truncate" style="max-width: 100px;">
-          <a [routerLink]="['/wallet', tx.fromAddress]">{{tx.title}}</a>
-
-          <!-- <span class="text-muted" *ngIf="blockchainService.addressIsFromCurrentUser(tx.toAddress)">
-            <br><small>(That's yours!)</small>
-          </span> -->
+        <td class="text-truncate" style="max-width: 120px;">
+          <div style="overflow-x: hidden; white-space: nowrap;">
+            <a [routerLink]="['/wallet', tx.fromAddress]">{{ tx.organization }}</a>
+          </div>
         </td>
+        <td class="text-truncate" style="max-width: 120px;">
+          <div style="overflow-x: hidden; white-space: nowrap;">
+            <a [routerLink]="['/wallet', tx.fromAddress]">{{ tx.title }}</a>
+          </div>
+        </td>
+        <td>{{ tx.timestamp |date:'MMM d, y, HH:mm' }}</td>
         <td>
-          {{tx.amount}}
-          <span *ngIf="tx.fromAddress === null" class="text-muted"><br><small>(Block reward)</small></span>
-        </td>
-        <td>
-          {{tx.timestamp}}<br>
-          <span class="text-muted"><small>{{tx.timestamp |date:'MMM d, y, HH:mm'}}</small></span>
-        </td>
-        <td style="max-width: 40px;">
           <span *ngIf="tx.isValid()">✓</span>
           <span *ngIf="!tx.isValid()">✗</span>
         </td>

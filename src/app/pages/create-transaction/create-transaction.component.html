@@ -1,35 +1,194 @@
 <div class="container" style="padding-top: 8rem">
 	<h1>Create transaction</h1>
-	<p>Transfer some money to someone!</p>
+	<p>Transfer some data!</p>
 
 	<br>
 
 	<div class="form-group">
 		<label for="fromAddress">From address</label>
 		<input type="text" class="form-control" id="fromAddress" aria-describedby="fromAddressHelp"
-			[(ngModel)]="ownWalletKey.publicKey" disabled>
+			[(ngModel)]="currentUserValue.publicKey" disabled>
 		<small id="fromAddressHelp" class="form-text text-muted">
-			This is your wallet address. You cannot change it because you can only spend your own coins.
+			PublicKey Node.
 		</small>
 	</div>
 
 	<div class="form-group">
-		<label for="title">Title data</label>
-		<input type="text" class="form-control" id="title" aria-describedby="titleHelp" [(ngModel)]="newTx.title">
+		<label for="organization">Organization</label>
+		<br>
+		<select name="organiztion" id="org" [(ngModel)]="newTx.organization">
+			<option *ngFor="let item of items |async" value="{{item.namaOrganization}}">{{item.namaOrganization}}
+			</option>
+		</select>
+		<!-- <input type="text" class="form-control" id="title" aria-describedby="titleHelp"
+			[(ngModel)]="newTx.organization"> -->
 		<small id="titleHelp" class="form-text text-muted">
-			The address of the wallet where you want to send the money to. You can type random text here (if you are not
-			interested in recovering the funds)
+			Nama Organisasi dari data yang bersangkutan
 		</small>
 	</div>
 
-	<div *ngFor="let data of dataS, index as index">
+
+
+	<div class="form-group row">
+		<div class="col-9">
+			<label>Title data</label><br />
+			<select #x (change)="filterChange(x.value)" [(ngModel)]="newTx.title">
+				<option value="Jaringan Trayek Perkotaan dan Pedesaan">Jaringan Trayek Perkotaan dan Pedesaan</option>
+				<option value="Usaha Kecil Menengah (UKM)">Usaha Kecil Menengah (UKM)</option>
+				<option value="Migrasi Penduduk Kendal">Migrasi Penduduk Kendal</option>
+				<option value="Bantuan IJK">Bantuan IJK</option>
+				<option value="Proyek Lelang">Proyek Lelang</option>
+			</select>
+			<small id="titleHelp" class="form-text text-muted">
+				Judul data dalam transaksi
+			</small>
+		</div>
+		<div class="col-3">
+			<label for="year">Year</label>
+			<input type="number" class="form-control" name="year" aria-describedby="titleHelp" [(ngModel)]="newTx.year">
+			<small id="titleHelp" class="form-text text-muted">
+				Tahun data dalam transaksi
+			</small>
+		</div>
+
+	</div>
+	<div *ngFor="let array of dataArray, index as index">
+
+		<!-- Jaringan Trayek Perkotaan dan Perdesaan -->
+		<div class="form-group row" *ngIf="temp == 'Jaringan Trayek Perkotaan dan Pedesaan'">
+			<div class="col">
+				<label for="trayek">Data trayek</label>
+				<input type="text" class="form-control" name="trayek{{i}}" [(ngModel)]="array.Trayek">
+			</div>
+			<div class="col">
+				<label for="trayek">Data Jumlah PO </label>
+				<input type="text" class="form-control" name="jumlahPO{{i}}" [(ngModel)]="array.JumlahPO">
+			</div>
+			<div class="col">
+				<label for="trayek">Data Jumlah Armada</label>
+				<input type="text" class="form-control" name="JumlahArmada{{i}}" [(ngModel)]="array.JumlahArmada">
+			</div>
+			<div style="padding-top: 32px;">
+				<button (click)="removeData()">X</button>
+			</div>
+		</div>
+
+		<!-- Usaha Kecil Menengah -->
+		<div class="form-group row" *ngIf="temp == 'Usaha Kecil Menengah (UKM)'">
+			<div class="col">
+				<label for="trayek">Data Kecamatan</label>
+				<input type="text" class="form-control" name="kecamatan{{i}}" [(ngModel)]="array.Kecamatan">
+			</div>
+			<div class="col">
+				<label for="trayek">Data Nama</label>
+				<input type="text" class="form-control" name="nama{{i}}" [(ngModel)]="array.Nama">
+			</div>
+			<div class="col">
+				<label for="trayek">Data Nama Usaha</label>
+				<input type="text" class="form-control" name="namausaha{{i}}" [(ngModel)]="array.NamaUsaha">
+			</div>
+			<div class="col">
+				<label for="trayek">Data Alamat</label>
+				<input type="text" class="form-control" name="alamat{{i}}" [(ngModel)]="array.Alamat">
+			</div>
+			<div class="col">
+				<label for="trayek">Data Modal Usaha</label>
+				<input type="text" class="form-control" name="JumlahArmada{{i}}" [(ngModel)]="array.ModalUsaha">
+			</div>
+			<div style="padding-top: 32px;">
+				<button (click)="removeData()">X</button>
+			</div>
+		</div>
+
+		<!-- Migrasi Penduduk Kendal -->
+		<div class="form-group row" *ngIf="temp == 'Migrasi Penduduk Kendal'">
+			<div class="col">
+				<label for="trayek">Data Kecamatan</label>
+				<input type="text" class="form-control" name="kecamatan{{index}}" [(ngModel)]="array.Kecamatan">
+			</div>
+			<div class="col">
+				<label for="trayek">Data Pindah</label>
+				<input type="text" class="form-control" name="pindah{{index}}" [(ngModel)]="array.Pindah">
+			</div>
+			<div class="col">
+				<label for="trayek">Data Datang</label>
+				<input type="text" class="form-control" name="datang{{index}}" [(ngModel)]="array.Datang">
+			</div>
+			<div style="padding-top: 32px;">
+				<button (click)="removeData()">X</button>
+			</div>
+		</div>
+
+		<!-- Bantuan IJK -->
+		<div class="form-group row" *ngIf="temp == 'Bantuan IJK'">
+			<div class="col">
+				<label for="trayek">Data Kecamatan</label>
+				<input type="text" class="form-control" name="kecamatan{{index}}" [(ngModel)]="array.Kecamatan">
+			</div>
+			<div class="col">
+				<label for="trayek">Data APD</label>
+				<input type="text" class="form-control" name="APD{{index}}" [(ngModel)]="array.APD">
+			</div>
+			<div class="col">
+				<label for="trayek">Data APBD</label>
+				<input type="text" class="form-control" name="APBD{{index}}" [(ngModel)]="array.APBD">
+			</div>
+			<div class="col">
+				<label for="trayek">Data APBN</label>
+				<input type="text" class="form-control" name="APBN{{index}}" [(ngModel)]="array.APBN">
+			</div>
+			<div style="padding-top: 32px;">
+				<button (click)="removeData()">X</button>
+			</div>
+		</div>
+
+		<!-- Proyek Lelang -->
+		<div class="form-group row" *ngIf="temp == 'Proyek Lelang'">
+			<div class="col">
+				<label for="trayek">Data Nama Lelang</label>
+				<input type="text" class="form-control" name="namalelang{{index}}" [(ngModel)]="array.NamaLelang">
+			</div>
+			<div class="col">
+				<label for="trayek">Data Instansi</label>
+				<input type="text" class="form-control" name="instansi{{index}}" [(ngModel)]="array.Instansi">
+			</div>
+			<div class="col">
+				<label for="trayek">Data Satker</label>
+				<input type="text" class="form-control" name="Satker{{index}}" [(ngModel)]="array.Satker">
+			</div>
+			<div class="col">
+				<label for="trayek">Data Nilai Pagu Paket</label>
+				<input type="text" class="form-control" name="nilaipagupaket{{index}}"
+					[(ngModel)]="array.NilaiPaguPaket">
+			</div>
+			<div class="col">
+				<label for="trayek">Data Nilai Pagu HPS Paket</label>
+				<input type="text" class="form-control" name="nilaiHPSpaket{{index}}" [(ngModel)]="array.NilaiHPSPaket">
+			</div>
+			<div class="col">
+				<label for="trayek">Data Pemenang Lelang</label>
+				<input type="text" class="form-control" name="pemenanglelang{{index}}"
+					[(ngModel)]="array.PemenangLelang">
+			</div>
+			<div class="col">
+				<label for="trayek">Data Harga Terkoreksi</label>
+				<input type="text" class="form-control" name="hargaterkoreksi{{index}}"
+					[(ngModel)]="array.HargaTerkoreksi">
+			</div>
+			<div style="padding-top: 32px;">
+				<button (click)="removeData()">X</button>
+			</div>
+		</div>
+
+	</div>
+	<!-- <div *ngFor="let data of dataS, index as index">
 		<div class="form-group row">
 			<div class="col">
 				<label for="amount">Data Key</label>
 				<input type="text" class="form-control" id="key" aria-describedby="datasHelp"
 					[(ngModel)]="dataS[index].key">
 				<small id="datasHelp" class="form-text text-muted">
-					You can transfer any data. Account balance is not checked in this demo. Have at it!
+					data key
 				</small>
 			</div>
 			<div class="col">
@@ -37,16 +196,36 @@
 				<input type="text" class="form-control" id="value" aria-describedby="datasHelp"
 					[(ngModel)]="dataS[index].value">
 				<small id="datasHelp" class="form-text text-muted">
-					You can transfer any data. Account balance is not checked in this demo. Have at it!
+					data value
 				</small>
 			</div>
-			<button (click)="removeData()">X</button>
+			<div class="col">
+				<label for="amount">Data Value</label>
+				<input type="text" class="form-control" id="value" aria-describedby="datasHelp"
+					[(ngModel)]="dataS[index].value">
+				<small id="datasHelp" class="form-text text-muted">
+					data value
+				</small>
+			</div>
+			<div class="col">
+				<label for="amount">Data Value</label>
+				<input type="text" class="form-control" id="value" aria-describedby="datasHelp"
+					[(ngModel)]="dataS[index].value">
+				<small id="datasHelp" class="form-text text-muted">
+					data value
+				</small>
+			</div>
+			<div style="padding-top: 32px;">
+				<button (click)="removeData()">X</button>
+			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="d-flex flex-row-reverse">
-		<button (click)="addData()" class="btn btn-primary">Tambah data</button>
+		<button #t (click)="addData(temp)" class="btn btn-primary">Tambah data</button>
 	</div>
 	<button (click)="createTransaction()" type="submit" class="btn btn-primary">Sign & create transaction</button>
+
+
 
 </div>

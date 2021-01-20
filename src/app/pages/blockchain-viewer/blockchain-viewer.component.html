@@ -18,12 +18,15 @@
 
 					<!--Table body-->
 					<tbody>
-						<tr class="" *ngFor="let block of recentBlock; index as index">
-							<td class="text-truncate" scope="row">
-								<a href="">{{block.height}}</a>
+						<tr class="" *ngFor="let block of blocks;">
+							<td class="text-truncate">
+								<a [routerLink]="['/detailblock', block.hash]">
+									{{block.height}}</a>
 							</td>
 							<td class="text-truncate" style="max-width: 120px;">
-								<div style="overflow-x: hidden; white-space: nowrap;">{{ block.hash }}</div>
+								<a [routerLink]="['/detailblock', block.hash]">
+									<div style="overflow-x: hidden; white-space: nowrap;">{{ block.hash }}</div>
+								</a>
 							</td>
 							<td>{{ block.nonce }}</td>
 							<td>{{ block.timestamp |date:'MMM d, y, HH:mm'}}</td>
@@ -39,20 +42,26 @@
 				<table class="content-table-1" style="font-size: small;">
 					<thead>
 						<tr>
-							<th>#</th>
-							<th>From</th>
-							<th>title</th>
+							<th>HashTx</th>
+							<th>Dinas</th>
+							<th>Title</th>
 							<th>Timestamp</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr *ngFor="let tx of recentTrans; index as index">
-							<td>{{index}}</td>
+						<tr *ngFor="let tx of transactions; index as index">
 							<td class="text-truncate" style="max-width: 120px;">
-								<div style="overflow-x: hidden; white-space: nowrap;">{{ tx.fromAddress }}</div>
+								<a [routerLink]="['/detailtransaction', tx.signature]">
+									<div style="overflow-x: hidden; white-space: nowrap;">{{ tx.signature }}</div>
+								</a>
 							</td>
 							<td class="text-truncate" style="max-width: 120px;">
-								<div style="overflow-x: hidden; white-space: nowrap;">{{ tx.title }}</div>
+								<a [routerLink]="['/detailorganization', tx.organization]">
+									<div style="overflow-x: hidden; white-space: nowrap;">{{ tx.organization }}</div>
+								</a>
+							</td>
+							<td class="text-truncate" style="max-width: 120px;">
+								<div style="overflow-x: hidden; white-space: nowrap;">{{ tx.title }} {{tx.year}}</div>
 							</td>
 							<td>{{ tx.timestamp |date:'MMM d, y, HH:mm' }}</td>
 						</tr>
@@ -62,46 +71,6 @@
 					&#8658;</button>
 			</div>
 		</div>
-		<!--Table-->
-		<!-- <table class="content-table-1">
-				<thead>
-					<tr>
-						<th>Block</th>
-						<th>Hash</th>
-						<th>Hash of Previous Block</th>
-						<th>Nonce</th>
-						<th>Timestamp</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr *ngFor="let block of blocks; index as index">
-						<td>{{ getBlockNumber() }}{{index}}</td>
-						<td>{{ block.hash }}</td>
-						<td>{{ block.previousHash }}</td>
-						<td>{{ block.nonce }}</td>
-						<td>{{ block.timestamp }}</td>
-					</tr>
-				</tbody>
-			</table> -->
-		<!-- <app-block-view *ngFor="let block of blocks" [block]="block" [selectedBlock]="selectedBlock"
-				(click)="showTransactions(block)">
-			</app-block-view> -->
 	</div>
 </div>
-
-<!-- <div class="container">
-	<h1>Blocks on chain</h1>
-	<p>Each card represents a block on the chain. Click on a block to see the transactions stored inside.</p>
-</div> -->
-
-<!-- <div class="container" style="overflow-x: scroll;white-space: nowrap;">
-	<app-block-view *ngFor="let block of blocks" [block]="block" [selectedBlock]="selectedBlock"
-		(click)="showTransactions(block)"></app-block-view>
-</div> -->
-
 <br><br>
-<!-- 
-<div class="container">
-	<h1>Transactions inside block {{ getBlockNumber(selectedBlock) }}</h1>
-	<app-transactions-table [transactions]="selectedBlock.transactions"></app-transactions-table>
-</div> -->

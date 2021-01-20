@@ -4,17 +4,64 @@
 		Transaction created successfully!
 	</div>
 
-	<h1>Pending transactions</h1>
+	<h1>Pending transactions {{jumlahTx}}</h1>
 	<p>These transactions are waiting to be included in the next block. Next block is created when you start the mining
 		process.</p>
 
-	<app-transactions-table [transactions]="pendingTransactions">
-	</app-transactions-table>
+	<!-- <app-transactions-table [transactions]="items | async">
+	</app-transactions-table> -->
+	<table class="content-table-1" style="font-size: small;">
+		<thead>
+			<tr>
+				<th scope="col">Signature</th>
+				<th scope="col">Organization</th>
+				<th scope="col">Title</th>
+				<th scope="col">Timestamp</th>
+				<th scope="col" style="width: 10px;"></th>
+			</tr>
+		</thead>
+		<tbody *ngFor="let tx of pending, index as index">
+			<tr>
+				<td class="text-truncate" style="max-width: 120px;">
+					<div style="overflow-x: hidden; white-space: nowrap;">
+						{{ tx.signature }}
+					</div>
+				</td>
+				<td class="text-truncate" style="max-width: 120px;">
+					<div style="overflow-x: hidden; white-space: nowrap;">
+						{{ tx.organization }}
+					</div>
+				</td>
+				<td class="text-truncate" style="max-width: 120px;">
+					<div style="overflow-x: hidden; white-space: nowrap;">
+						{{ tx.title }} {{tx.year}}
+					</div>
+				</td>
+				<td>{{ tx.timestamp |date:'MMM d, y, HH:mm' }}</td>
+				<!-- <td>
+					<span *ngIf="tx.isValid()">✓</span>
+					<span *ngIf="!tx.isValid()">✗</span>
+				</td> -->
 
-	<button class="btn btn-primary" *ngIf="pendingTransactions.length > 0 && miningInProgress === false"
-		(click)="minePendingTransactions()">
-		Start mining
-	</button>
+				<!-- </tr>
+			<tr>
+				<th *ngFor=" let s of tx.data[0] | keyvalue">{{s.key}}</th>
+			</tr>
+			<tr *ngFor=" let s of tx.data">
+				<td *ngFor=" let r of s | keyvalue" scope="col">{{r.value}}</td>
+			</tr> -->
+
+
+		</tbody>
+	</table>
+
+	<div *ngIf="currentUserValue.lastName == 'node central'">
+		<button class="btn btn-primary" *ngIf="jumlahTx > 0 && miningInProgress === false"
+			(click)="minePendingTransactions()">
+			Start mining
+		</button>
+
+	</div>
 
 	<div *ngIf="miningInProgress === true">
 		Mining block.. Hang on...

@@ -1,0 +1,65 @@
+<div class="container px-5" style="padding-top: 120px;">
+    <div class="row border">
+        <div class="co;" *ngFor="let item of items |async">
+            <div class="d-flex" *ngIf="namaOrganization == item.namaOrganization">
+                <!--Card image-->
+                <div class="">
+                    <img class="card-img-top" src="../../../assets/img/{{item.img}}" alt="Card image cap">
+                </div>
+
+                <!--Card content-->
+                <div class="pl-5 pt-2">
+                    <!--Title-->
+                    <h4 class="" style="font-size: larger;">{{item.namaOrganization}}</h4>
+                    <!--Text-->
+                    <div>
+                        <p class="card-text text-dark" style="font-size: small;">
+                            {{item.description}}</p>
+                    </div>
+                    <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                </div>
+
+            </div>
+            <!-- Card -->
+        </div>
+    </div>
+
+    <div class="transactions" style="padding-top: 100px;">
+        <h4>{{dataTx.length}} Transactions </h4>
+        <table class="content-table-1" style="font-size: small;">
+            <thead>
+                <tr>
+                    <th scope="col">Signature</th>
+                    <th scope="col">Organization</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Timestamp</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tx of dataTx; index as index">
+                    <td class="text-truncate" style="max-width: 120px;">
+                        <div style="overflow-x: hidden; white-space: nowrap;">
+                            <a [routerLink]="['/detailtransaction', tx.signature]">{{ tx.signature }}</a>
+                        </div>
+                    </td>
+                    <td class="text-truncate" style="max-width: 120px;">
+                        <div style="overflow-x: hidden; white-space: nowrap;">
+                            <a [routerLink]="['/detailorganization', tx.organization]">{{ tx.organization }}</a>
+                        </div>
+                    </td>
+                    <td class="text-truncate" style="max-width: 120px;">
+                        <div style="overflow-x: hidden; white-space: nowrap;">
+                            {{ tx.title }}
+                        </div>
+                    </td>
+                    <td>{{ tx.timestamp |date:'MMM d, y, HH:mm' }}</td>
+                    <!-- <td>
+                        <span *ngIf="tx.isValid()">✓</span>
+                        <span *ngIf="!tx.isValid()">✗</span>
+                    </td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

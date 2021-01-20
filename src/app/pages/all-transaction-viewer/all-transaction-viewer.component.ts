@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { BlockchainService } from 'src/app/services/blockchain.service';
 
 @Component({
@@ -9,18 +10,32 @@ import { BlockchainService } from 'src/app/services/blockchain.service';
 export class AllTransactionViewerComponent implements OnInit {
   
   public blocks = [];
-  public allTransaction = [];
+  kirim = [];
+  public transactions = [];
 
-  constructor(blockchainService : BlockchainService) {
-    this.blocks = blockchainService.blockchainInstance.chain;
-    for(let i=this.blocks.length - 1 ; i>=0 ; i--){
-      for (let index = this.blocks[i].transactions.length - 1 ; index >=0 ; index--) {
-        this.allTransaction.push(this.blocks[i].transactions[index]); 
+  constructor(blockchainService : BlockchainService, private firestore: AngularFirestore) {
+    firestore.collection('block', ref => ref.orderBy("height", "desc")).snapshotChanges().subscribe( data =>{
+      this.blocks = data.map(e=>{
+        return{
+          id: e.payload.doc.id,
+          hash: e.payload.doc.data()['hash'],
+          height: e.payload.doc.data()['height'],
+          nonce: e.payload.doc.data()['nonce'],
+          previousHash: e.payload.doc.data()['previousHash'],
+          timestamp: e.payload.doc.data()['timestamp'],
+          transactions: e.payload.doc.data()['transactions']
+        }
+      })
+      for(let blocks of this.blocks){
+        for(let transactions of blocks.transactions){
+          this.transactions.push(transactions)
+        }
       }
-    }
-
-    console.log(this.allTransaction);
-   }
+      for(let i = 0; i > this.transactions.length; i++){
+        console.log(this.transactions[i])
+      }
+    })
+  }
 
   ngOnInit() {
   }

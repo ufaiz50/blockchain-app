@@ -1,25 +1,34 @@
-<div class="container-fluid">
-    <div style="color: blue;">
-        <h1>{{title}}</h1>
-        <h3>{{description}}</h3>
-    </div>
+<div class="container px-5" style="padding-top: 120px;">
+    <div class="card-deck row">
+        <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let item of items |async">
+            <!-- Card -->
+            <div class="card">
+                <!--Card image-->
+                <div class="view overlay">
+                    <img class="card-img-top" src="../../../assets/img/{{item.img}}" alt="Card image cap">
+                    <a href="#!">
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
 
-    <div style="width: 300px;">
-        <form (ngSubmit)="onSubmit()">
-            <div class="form-group">
-                <label for="item">Item</label>
-                <input type="text" class="form-control" placeholder="Enter content..." id="item" required
-                    [(ngModel)]="itemValue" name="item">
+                <!--Card content-->
+                <div class="card-body">
+                    <!--Title-->
+                    <h4 class="card-title" style="font-size: larger;">{{item.namaOrganization}}</h4>
+                    <!--Text-->
+                    <div style="height: 90px; overflow-y: hidden;">
+                        <p class="card-text text-dark" style="font-size: small;">
+                            {{item.description}}</p>
+                    </div>
+                    <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                    <button [routerLink]="['/detailorganization', item.namaOrganization]" type="button"
+                        class="btn btn-primary">Read more</button>
+
+                </div>
+
             </div>
-
-            <div class="btn-group">
-                <button type="submit" class="btn btn-success">Submit</button>
-            </div>
-        </form>
+            <!-- Card -->
+        </div>
     </div>
-
-    <h2>Content from Firebase</h2>
-    <div class="col-md-3">
-        <pre *ngFor="let item of items | async">{{item.content}}</pre>
-    </div>
+    <!-- Card deck -->
 </div>

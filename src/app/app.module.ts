@@ -1,11 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 // firebase
 import { AngularFireModule } from '@angular/fire';
-import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule} from '@angular/fire/firestore'
 import { environment } from '../environments/environment';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +25,19 @@ import { AllTransactionViewerComponent } from './pages/all-transaction-viewer/al
 import { DetailBlockViewerComponent } from './pages/detail-block-viewer/detail-block-viewer.component';
 import { DetailTransactionViewerComponent } from './pages/detail-transaction-viewer/detail-transaction-viewer.component';
 import { OrganizationViewerComponent } from './pages/organization-viewer/organization-viewer.component';
+import { BlockchainModuleService } from './services/blockchain-module.service';
+import { DetailOrganizationViewerComponent } from './pages/detail-organization-viewer/detail-organization-viewer.component';
+import { LoginComponent } from './page/login/login.component';
+import { SearchComponent } from './pages/search/search.component';
+import { AlertComponent } from './page/_components/alert/alert.component';
+import { HomeComponent } from './page/home/home.component';
+import { RegisterComponent } from './page/register';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptor, fakeBackendProvider, JwtInterceptor } from './page/_helpers';
+import { TryLoginComponent } from './pages/login/login.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { SearchdataComponent } from './components/searchdata/searchdata.component';
+
 
 @NgModule({
   declarations: [
@@ -38,17 +53,42 @@ import { OrganizationViewerComponent } from './pages/organization-viewer/organiz
     AllTransactionViewerComponent,
     DetailBlockViewerComponent,
     DetailTransactionViewerComponent,
-    OrganizationViewerComponent
+    OrganizationViewerComponent,
+    DetailOrganizationViewerComponent,
+    LoginComponent,
+    SearchComponent,
+    AlertComponent,
+    TryLoginComponent,
+
+    HomeComponent,
+    LoginComponent,
+    RegisterComponent,
+    AlertComponent,
+    SearchdataComponent
   ],
   imports: [
     BrowserModule,
+
+    ReactiveFormsModule,
+    HttpClientModule,
+    
     FormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AngularFirestoreModule,
+
+    Ng2SearchPipeModule
   ],
   providers: [
-    BlockchainService
+    BlockchainService,
+    BlockchainModuleService,
+    
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+
+    // provider used to create fake backend
+    fakeBackendProvider
   ],
   bootstrap: [AppComponent]
 })

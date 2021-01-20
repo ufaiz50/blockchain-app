@@ -4,34 +4,34 @@
         <thead>
             <tr>
                 <th scope="col">Signature</th>
-                <th scope="col">From</th>
+                <th scope="col">Organization</th>
                 <th scope="col">Title</th>
                 <th scope="col">Timestamp</th>
-                <th scope="col" style="width: 10px;">Valid?</th>
+
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let tx of allTransaction; index as index">
+            <tr *ngFor="let tx of transactions; index as index">
                 <td class="text-truncate" style="max-width: 120px;">
                     <div style="overflow-x: hidden; white-space: nowrap;">
-                        <a [routerLink]="['/wallet', tx.fromAddress]">{{ tx.signature }}</a>
+                        <a [routerLink]="['/detailtransaction', tx.signature]">{{ tx.signature }}</a>
                     </div>
                 </td>
                 <td class="text-truncate" style="max-width: 120px;">
                     <div style="overflow-x: hidden; white-space: nowrap;">
-                        <a [routerLink]="['/wallet', tx.fromAddress]">{{ tx.fromAddress }}</a>
+                        <a [routerLink]="['/detailorganization', tx.fromAddress]">{{ tx.organization }}</a>
                     </div>
                 </td>
                 <td class="text-truncate" style="max-width: 120px;">
                     <div style="overflow-x: hidden; white-space: nowrap;">
-                        <a [routerLink]="['/wallet', tx.fromAddress]">{{ tx.title }}</a>
+                        {{ tx.title }} {{ tx.year }}
                     </div>
                 </td>
                 <td>{{ tx.timestamp |date:'MMM d, y, HH:mm' }}</td>
-                <td>
+                <!-- <td>
                     <span *ngIf="tx.isValid()">✓</span>
                     <span *ngIf="!tx.isValid()">✗</span>
-                </td>
+                </td> -->
             </tr>
         </tbody>
     </table>

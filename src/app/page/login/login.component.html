@@ -1,0 +1,78 @@
+﻿<div class="limiter d-flex justify-content-center pt-5">
+
+    <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54 pt">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login100-form validate-form">
+            <span class="login100-form-title p-b-49">Login</span>
+
+            <div class="wrap-input100 validate-input m-b-23">
+                <span class="label-input100" for="publicKey">Public Key</span>
+                <input class="input100" type="text" placeholder="Type your PublicKey" formControlName="publicKey">
+                <span class="focus-input100" data-symbol="&#xf206;"></span>
+                <!-- <input type="text" formControlName="username" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                    <div *ngIf="f.username.errors.required">Username is required</div>
+                </div> -->
+            </div>
+
+            <div class="wrap-input100 validate-input">
+                <span class="label-input100" for="privateKey">PrivateKey</span>
+                <input class="input100" type="password" placeholder="Type your PrivateKey" formControlName="privateKey">
+                <span class="focus-input100" data-symbol="&#xf190;"></span>
+                <!-- <input type="password" formControlName="password" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                    <div *ngIf="f.password.errors.required">Password is required</div>
+                </div> -->
+            </div>
+
+            <div class="container-login100-form-btn pt-5">
+                <div class="wrap-login100-form-btn" fxLayout="row" fxLayoutAlign="center center">
+                    <div class="login100-form-bgbtn"></div>
+                    <button [disabled]="loading" class="mat-accent mr-16 login100-form-btn">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Login
+                    </button>
+                </div>
+                <!-- <button [disabled]="loading" class="btn btn-primary">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Login
+                </button> -->
+                <a routerLink="/page/register" class="btn btn-link">Register</a>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- <div class="limiter d-flex justify-content-center pt-5">
+    <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54 pt">
+        <form class="login100-form validate-form">
+            <span class="login100-form-title p-b-49">
+                Login
+            </span>
+
+            <div class="form-group wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+                <span class="label-input100" for="publicKey">PublicKey</span>
+                <input class="input100" type="text" placeholder="Type your PublicKey" id="publicKey"
+                    [(ngModel)]="datalogin.publicKey" name="public">
+                <span class="focus-input100" data-symbol="&#xf206;"></span>
+            </div>
+
+            <div class="form-group wrap-input100 validate-input" data-validate="Password is required">
+                <span class="label-input100" for="privateKey">PrivateKey</span>
+                <input class="input100" type="password" placeholder="Type your PrivateKey" id="privateKey"
+                    [(ngModel)]="datalogin.privateKey" name="private">
+                <span class="focus-input100" data-symbol="&#xf190;"></span>
+            </div>
+
+            <div class="container-login100-form-btn pt-5">
+                <div class="wrap-login100-form-btn" fxLayout="row" fxLayoutAlign="center center">
+                    <div class="login100-form-bgbtn"></div>
+                    <button (click)="login()" class="mat-accent mr-16 login100-form-btn">
+                        Login
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div> -->

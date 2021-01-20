@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
+    "start": "node serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -13,8 +13,6 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^8.2.14",
-    "@angular/cli": "^8.3.20",
-    "@angular/compiler-cli": "^8.2.14",
     "@angular/common": "^8.2.14",
     "@angular/compiler": "^8.2.14",
     "@angular/core": "^8.2.14",
@@ -27,10 +25,10 @@
     "SavjeeCoin": "github:SavjeeTutorials/SavjeeCoin#5cc294c488604546526bf277eceef9ea443b762b",
     "core-js": "^2.6.5",
     "firebase": "^8.1.1",
+    "ng2-search-filter": "^0.5.1",
     "node-sass": "^4.12.0",
     "rxjs": "^6.6.3",
-    "zone.js": "^0.9.1",
-    "typescript": "~3.5.0"
+    "zone.js": "^0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.803.29",
@@ -40,7 +38,11 @@
     "@types/jasmine": "^3.3.12",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^10.12.30",
+    "angular2-template-loader": "^0.6.2",
     "codelyzer": "~4.5.0",
+    "css-loader": "^2.1.1",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
     "jasmine-core": "~3.3.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "^4.1.0",
@@ -48,13 +50,16 @@
     "karma-coverage-istanbul-reporter": "^2.0.5",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
+    "less": "^3.0.4",
+    "less-loader": "^5.0.0",
     "protractor": "^5.4.2",
+    "style-loader": "^0.23.1",
+    "ts-loader": "^6.0.1",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "~3.5.0"
-  },
-  "engines": {
-    "node": "14.15.1",
-    "npm": "6.14.8"
+    "typescript": "~3.5.0",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.7.0"
   }
 }

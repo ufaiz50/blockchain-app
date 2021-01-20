@@ -16,7 +16,7 @@
 
             <!--Table body-->
             <tbody>
-                <tr class="" *ngFor="let block of latesBlock">
+                <tr class="" *ngFor="let block of blocks">
                     <td scope="col">
                         <a [routerLink]="['/detailblock', block.hash]">{{block.height}}</a>
                     </td>
