@@ -29,10 +29,8 @@ export class RegisterComponent implements OnInit {
         const ec = new EC.ec('secp256k1');
         const key = ec.genKeyPair();
         this.registerForm = this.formBuilder.group({
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
+            level: ['', Validators.required],
             username: ['', Validators.required],
-            password: ['', [Validators.required, Validators.minLength(6)]],
             keyObj: [key, Validators.required],
             publicKey: [key.getPublic('hex'), Validators.required], 
             privateKey: [key.getPrivate('hex'), Validators.required]

@@ -55,7 +55,7 @@
 		</tbody>
 	</table>
 
-	<div *ngIf="currentUserValue.lastName == 'node central'">
+	<div *ngIf="currentUserValue.level == 'node central'">
 		<button class="btn btn-primary" *ngIf="jumlahTx > 0 && miningInProgress === false"
 			(click)="minePendingTransactions()">
 			Start mining

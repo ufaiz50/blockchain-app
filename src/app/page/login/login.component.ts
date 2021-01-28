@@ -33,7 +33,8 @@ users = [];
         });
 
         // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'new/transaction';
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        
     }
 
     // convenience getter for easy access to form fields
@@ -56,10 +57,13 @@ users = [];
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl]);
+                    window.location.reload()
                 },
                 error => {
                     this.alertService.error(error);
                     this.loading = false;
                 });
+
+        
     }
 }

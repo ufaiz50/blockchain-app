@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { ActivatedRoute } from '@angular/router';
 import { BlockchainService } from 'src/app/services/blockchain.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class AllTransactionViewerComponent implements OnInit {
   kirim = [];
   public transactions = [];
 
-  constructor(blockchainService : BlockchainService, private firestore: AngularFirestore) {
+  constructor(blockchainService : BlockchainService, private firestore: AngularFirestore, private router: ActivatedRoute) {
     firestore.collection('block', ref => ref.orderBy("height", "desc")).snapshotChanges().subscribe( data =>{
       this.blocks = data.map(e=>{
         return{
@@ -38,6 +39,7 @@ export class AllTransactionViewerComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
 }

@@ -82,7 +82,7 @@ export class CreateTransactionComponent implements OnInit {
     this.newTx = new Transaction();
   }
 
-  addData(){
+  addData(temp){
     const newData = {};
     this.dataArray.push(newData);
     console.log(this.dataArray);

@@ -43,8 +43,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             return ok({
                 username: user.username,
                 id: user.id,
-                firstName: user.firstName,
-                lastName: user.lastName,
+                level: user.level,
                 token: 'fake-jwt-token',
                 publicKey: user.publicKey,
                 privateKey: user.privateKey

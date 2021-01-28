@@ -36,7 +36,8 @@ export class AppComponent implements OnInit {
       
       if(this.currentUser){
         this.currentUserValue = this.authenticationService.currentUserValue;
-        this.aktor = this.currentUserValue.lastName
+        this.aktor = this.currentUserValue.level
+        console.log(this.aktor)
       }
       
 
@@ -44,7 +45,8 @@ export class AppComponent implements OnInit {
 
   logout() {
         this.authenticationService.logout();
-        this.router.navigate(['/login']);
+        this.router.navigate(['/']);
+        window.location.reload()
     }
 
 
